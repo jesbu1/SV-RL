@@ -40,7 +40,7 @@ def atari_learn(env, args, num_timesteps):
     # )
 
     def stopping_criterion(env):
-        return get_wrapper_by_name(env, "Monitor").get_total_steps() >= num_timesteps
+        return get_wrapper_by_name(env, "Monitor").get_total_steps() >= 4 * num_timesteps
 
     # optimizer_spec = OptimizerSpec(
     #     constructor=optim.RMSprop,
