@@ -61,8 +61,8 @@ def run():
                                 func=_worker,
                                 args=[command, device_queue],
                                 error_callback=lambda e: logging.error(e))
-                            process_pool.close()
-                            process_pool.join()
+    process_pool.close()
+    process_pool.join()
 
 def _worker(command, device_queue):
     # sleep for random seconds to avoid crowded launching
