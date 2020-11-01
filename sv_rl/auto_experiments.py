@@ -46,17 +46,17 @@ def run():
         processes=max_worker_num, maxtasksperchild=1)
     device_queue = _init_device_queue(max_worker_num)
 
-    for command in COMMANDS:
-        for env in envs:
-            for me_type in me_types:
-                for maskp in maskps:
-                    for batch_size in batch_sizes:
-                        for svrl in svrls:
+    for env in envs:
+        for me_type in me_types:
+            for maskp in maskps:
+                for batch_size in batch_sizes:
+                    for svrl in svrls:
+                        for command in COMMANDS:
                             if svrl == "--svrl":
                                 svrl_string = "svrl"
                             else:
                                 svrl_string = ""
-                            command += f'--env {env} {svrl} --me_type {me_type} --maskp {maskp} --batch-size {batch_size} --num_timesteps {timestamp_map[env]} {env_name_map[env]}_dqn_{svrl_string}_{me_type}' 
+                            command += f'--env {env} {svrl} --me_type {me_type} --maskp {maskp} --batch-size {batch_size} --num_timesteps {timestamp_map[env]} {env_name_map[env]}_dqn_{svrl_string}_{me_type}_{maskp}_{batch_size}' 
                             process_pool.apply_async(
                                 func=_worker,
                                 args=[command, device_queue],
