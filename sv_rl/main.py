@@ -124,14 +124,14 @@ def main():
     parser.add_argument('exp_name', type=str)
     parser.add_argument('--env', type=str, default='PongNoFrameskip-v4', help='choose atari games')
     parser.add_argument('--gamma', type=float, default=0.99, help='discount reward coefficient (default 0.99)')
-    parser.add_argument('--batch-size', type=int, default=32, help='default: 32')
+    parser.add_argument('--batch-size', type=int, default=32, help='default: 32') # 16, 32, 64
     parser.add_argument('--double', action='store_true', help='use double DQN')
     parser.add_argument('--dueling', action='store_true', help='use dueling DQN')
     parser.add_argument('--svrl', action='store_true')
     parser.add_argument('--maskscheduler', action='store_true')
     parser.add_argument('--method', type=str, default='baseline', help='name of the method')
-    parser.add_argument('--me_type', type=str, default='softimp', help='choose the SV-RL mechanism')
-    parser.add_argument('--maskp', type=float, default=0.9, help='mask probability (default: 0.9)')
+    parser.add_argument('--me_type', type=str, default='softimp', help='choose the SV-RL mechanism') #nuclear norm, softimp, svt from matrix completion package
+    parser.add_argument('--maskp', type=float, default=0.9, help='mask probability (default: 0.9)') # 0.1?, 0.5, 0.9
     parser.add_argument('--maskstep', type=float, default=2e6, help='total steps for linear scheduler (default: 2e6)')
     parser.add_argument('--num_timesteps', type=float, default=6e7, help='total time steps (default: 6e7)')
     parser.add_argument('--gpu', type=int, default=0)
