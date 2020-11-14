@@ -7,7 +7,7 @@ import traceback
 import time
 which_gpus = [0, 1, 2, 3]
 #which_gpus = [1]
-max_worker_num = len(which_gpus) * 2
+max_worker_num = len(which_gpus) * 3
 COMMANDS = [
     "python3 main.py " 
 ]
@@ -17,8 +17,9 @@ maskps = [
     0.5,
     0.9
 ]
-me_types = ["svt","nucnorm", "softimp"]
+me_types = ["iterative_svd",]# "nucnorm", "softimp"]
 envs = ["BreakoutNoFrameskip-v4", "FrostbiteNoFrameskip-v4"]
+#envs = ["FrostbiteNoFrameskip-v4"]
 svrls = ["--svrl"] #""]
 env_name_map = {
     "BreakoutNoFrameskip-v4":"breakout", 
@@ -57,6 +58,7 @@ def run():
                             else:
                                 svrl_string = ""
                             command += f'--env {env} {svrl} --me_type {me_type} --maskp {maskp} --batch-size {batch_size} --num_timesteps {timestamp_map[env]} {env_name_map[env]}_dqn_{svrl_string}_{me_type}_{maskp}_{batch_size}' 
+                            #print(command)
                             process_pool.apply_async(
                                 func=_worker,
                                 args=[command, device_queue],
