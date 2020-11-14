@@ -3,7 +3,7 @@ import numpy as np
 import math, time
 
 import cvxpy as cvx
-from fancyimpute import SoftImpute, BiScaler
+from fancyimpute import SoftImpute, BiScaler, MatrixFactorization
 from matrix_completion import svt_solve
 
 
@@ -44,6 +44,22 @@ def nuclear_norm_solve(A, mask, mu):
     problem.solve(solver=cvx.SCS)
     return X.value
 
+def matrix_factorization(inputs, h, w, mask_prob):
+    inputs = inputs.cpu().numpy()
+    subtract_val = (inputs.max() + inputs.min()) / 2.
+    divide_val = (inputs.max() - inputs.min()) / 2. + 1e-7
+    inputs = (inputs - subtract_val) / divide_val
+    mask = np.random.binomial(1, mask_prob, h * w).reshape(h, w).astype(float)
+    mask[mask < 1] = np.nan
+    W = MatrixFactorization(verbose=False).fit_transform(mask * inputs)
+    W[W < -1] = -1
+    W[W > 1] = 1
+    est_matrix = W * divide_val + subtract_val
+
+    return torch.from_numpy(est_matrix)
+    est_matrix = W * divide_val + subtract_val
+
+    return torch.from_numpy(est_matrix)
 
 def nucnorm(inputs, h, w, mask_prob):
     inputs = inputs.cpu().numpy()
