@@ -5,29 +5,31 @@ from multiprocessing import Queue, Manager
 from pathos import multiprocessing
 import traceback
 import time
-which_gpus = [0, 1, 2, 3]
+which_gpus = [0, 1]
 #which_gpus = [1]
-max_worker_num = len(which_gpus) * 3
+max_worker_num = len(which_gpus) * 2
 COMMANDS = [
     "python3 main.py " 
 ]
 batch_sizes = [16, 32, 64]
 maskps = [
     #0.1,
-    0.5,
+    #0.5,
     0.9
 ]
 me_types = ["iterative_svd",]# "nucnorm", "softimp"]
-envs = ["BreakoutNoFrameskip-v4", "FrostbiteNoFrameskip-v4"]
+envs = ["ZaxxonNoFrameskip-v4"]#["BreakoutNoFrameskip-v4", "FrostbiteNoFrameskip-v4"]
 #envs = ["FrostbiteNoFrameskip-v4"]
 svrls = ["--svrl"] #""]
 env_name_map = {
     "BreakoutNoFrameskip-v4":"breakout", 
     "FrostbiteNoFrameskip-v4":"frostbite",
+    "ZaxxonNoFrameskip-v4":"zaxxon",
 }
 timestamp_map = {
     "BreakoutNoFrameskip-v4":15000000, 
     "FrostbiteNoFrameskip-v4":10000000,
+    "ZaxxonNoFrameskip-v4":15000000, 
 }
 def _init_device_queue(max_worker_num):
     m = Manager()
@@ -69,7 +71,7 @@ def run():
 def _worker(command, device_queue):
     # sleep for random seconds to avoid crowded launching
     try:
-        time.sleep(random.uniform(0, 3))
+        time.sleep(random.uniform(0, 10))
 
         device = device_queue.get()
 
