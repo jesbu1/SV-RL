@@ -103,7 +103,7 @@ class MatrixFactorization(Solver):
             ij_tr,
             y_tr,
             batch_size=int(len(y_tr) * (1 - self.validation_frac)),
-            epochs=10000,
+            epochs=1000,
             validation_split=self.validation_frac,
             callbacks=callbacks,
             shuffle=True,

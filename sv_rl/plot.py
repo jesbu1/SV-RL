@@ -15,7 +15,7 @@ def plot_data(data, value="MeanReward100Episodes", save_name="results", title="P
     plt.xlabel('Time step', fontsize=20)
     plt.ylabel('Average score', fontsize=20)
     plt.legend(loc='best', fontsize=15).draggable()
-    plt.title(title, fontsize=20)
+    plt.title(title.replace('_', ' ').title(), fontsize=20)
     ax = plt.axes()
     ax.tick_params(direction='in')
     plt.grid()

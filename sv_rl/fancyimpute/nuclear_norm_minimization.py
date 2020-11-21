@@ -40,7 +40,7 @@ class NuclearNormMinimization(Solver):
             Add symmetry constraint to convex problem
 
         min_value : float
-            Smallest possible imputed value
+            Smallest possible imputed vSCSalue
 
         max_value : float
             Largest possible imputed value

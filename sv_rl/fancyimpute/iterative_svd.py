@@ -25,7 +25,7 @@ F32PREC = np.finfo(np.float32).eps
 class IterativeSVD(Solver):
     def __init__(
             self,
-            rank=10,
+            rank=3,
             convergence_threshold=0.00001,
             max_iters=200,
             gradual_rank_increase=True,
