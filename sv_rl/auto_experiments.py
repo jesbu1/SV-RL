@@ -5,28 +5,36 @@ from multiprocessing import Queue, Manager
 from pathos import multiprocessing
 import traceback
 import time
-which_gpus = [0, 1]
-#which_gpus = [1]
+which_gpus = [0, 1, 2, 3]
 max_worker_num = len(which_gpus) * 2
 COMMANDS = [
     "python3 main.py " 
 ]
-batch_sizes = [16, 32, 64]
+batch_sizes = [64]#[16, 32, 64]
 maskps = [
     #0.1,
-    #0.5,
-    0.9
+    0.5,
+    #0.9
 ]
-me_types = ["iterative_svd",]# "nucnorm", "softimp"]
-envs = ["ZaxxonNoFrameskip-v4"]#["BreakoutNoFrameskip-v4", "FrostbiteNoFrameskip-v4"]
+#me_types = ["softimp"]#["iterative_svd",]# "nucnorm", "softimp"]
+me_types = ["svt"]#["iterative_svd",]# "nucnorm", "softimp"]
+envs = ["AlienNoFrameskip-v4", "AtlantisNoFrameskip-v4", "CrazyClimberNoFrameskip-v4", "IceHockeyNoFrameskip-v4"]#"ZaxxonNoFrameskip-v4"]#["BreakoutNoFrameskip-v4", "FrostbiteNoFrameskip-v4"]
 #envs = ["FrostbiteNoFrameskip-v4"]
 svrls = ["--svrl"] #""]
 env_name_map = {
+    "AlienNoFrameskip-v4":"alien",
+    "AtlantisNoFrameskip-v4":"atlantis",
+    "CrazyClimberNoFrameskip-v4":"crazy_climber",
+    "IceHockeyNoFrameskip-v4":"ice_hockey",
     "BreakoutNoFrameskip-v4":"breakout", 
     "FrostbiteNoFrameskip-v4":"frostbite",
     "ZaxxonNoFrameskip-v4":"zaxxon",
 }
 timestamp_map = {
+    "AlienNoFrameskip-v4":15000000,
+    "AtlantisNoFrameskip-v4":30000000,
+    "CrazyClimberNoFrameskip-v4":15000000,
+    "IceHockeyNoFrameskip-v4":15000000,
     "BreakoutNoFrameskip-v4":15000000, 
     "FrostbiteNoFrameskip-v4":10000000,
     "ZaxxonNoFrameskip-v4":15000000, 
